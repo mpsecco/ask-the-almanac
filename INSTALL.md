@@ -74,9 +74,30 @@ git pull
 ./install.sh            # or install.ps1 on Windows
 ```
 
-## Without building: copy the zip
+## Without building: download a release
 
-Every install also writes `bin/Release/net6.0/AskTheAlmanac <version>.zip`. On a machine that already has SMAPI, you can skip the .NET SDK: unzip that file into `Stardew Valley/Mods`, so you end up with `Mods/AskTheAlmanac/AskTheAlmanac.dll`.
+On a machine that already has SMAPI, you can skip the .NET SDK and the clone. Download the latest release zip and unzip it into the game's `Mods` folder, so you end up with `Mods/AskTheAlmanac/AskTheAlmanac.dll`:
+
+```bash
+gh release download --repo mpsecco/ask-the-almanac --pattern '*.zip'
+unzip -o AskTheAlmanac-*.zip -d "/path/to/Stardew Valley/Mods"
+```
+```powershell
+gh release download --repo mpsecco/ask-the-almanac --pattern '*.zip'
+Expand-Archive AskTheAlmanac-*.zip -DestinationPath "C:\path\to\Stardew Valley\Mods" -Force
+```
+
+An existing `config.json` is kept, because the zip doesn't contain one. Every source install also writes the same zip to `bin/Release/net6.0/`.
+
+## Publishing a release
+
+After bumping `Version` in both `manifest.json` and `AskTheAlmanac.csproj`:
+
+```bash
+dotnet build AskTheAlmanac.csproj -c Release -p:EnableModDeploy=false
+cp "bin/Release/net6.0/AskTheAlmanac <version>.zip" AskTheAlmanac-<version>.zip
+gh release create v<version> AskTheAlmanac-<version>.zip --title "v<version>" --notes "..."
+```
 
 ## Where things are
 
