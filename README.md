@@ -2,6 +2,8 @@
 
 An in-game chat window for Stardew Valley where you can ask an AI anything about the game, like "how much is a coop?", "what does Abigail love?" or "what should I plant today?".
 
+![The Ask the Almanac window open on the farm, answering "What should I plant today?" with three follow-up question buttons below](docs/screenshot.png)
+
 Answers are checked against the [official Stardew Valley wiki](https://stardewvalleywiki.com) as the AI writes them, so prices, gift tastes and schedules come from the wiki rather than the AI's memory. It also knows your current date, weather, money and location, so the advice fits your save.
 
 - A native-looking popup built from the game's own menu frame, fonts and buttons
