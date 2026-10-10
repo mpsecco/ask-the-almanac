@@ -34,6 +34,9 @@ MODEL=glm-5.3-flash:cloud CTX=6000 HIST=300 dotnet run -- ...   # small budgets 
 | `WikiTools.cs` | `search_wiki` / `read_wiki_page` tools on the MediaWiki API, plus wikitext cleanup. |
 | `GameContext.cs` | Game-state summary (date, weather, money, location, skills, luck) for the system prompt. |
 | `ChatMenu.cs` | The `IClickableMenu`: frame, message log, scrolling, follow-up buttons, text box. |
+| `install.sh` / `install.ps1` | User install scripts: find the game, check prerequisites, optionally install SMAPI, then a release build that deploys the mod. |
+| `INSTALL.md` | Per-OS install, update, release download and release publishing steps. |
+| `tools/PromptHarness/` | Console app that runs the AI code outside the game. It's excluded from the mod build by `<Compile Remove="tools/**" />`. |
 
 ## Architecture rules
 
@@ -67,6 +70,29 @@ MODEL=glm-5.3-flash:cloud CTX=6000 HIST=300 dotnet run -- ...   # small budgets 
   - Models sometimes glue `>>` onto the end of the answer, so `ParseReply` splits on `>>` anywhere.
 - **Empty answers.** Models occasionally return an empty answer after tool calls; we retry once with a nudge. This happens most with `glm-5.3-flash` (the default): about 1 in 5 first replies come back empty, and about 1 in 10 still fail after the retry. `glm-5.3:cloud` is the more reliable alternative.
 - **Prompt style.** Telling the model "no lists" also suppressed the `>>` lines. The prompt explicitly calls the follow-up lines the one expected line format. Keep the worked example in `SystemPrompt` in sync with any format change.
+
+## Releasing
+
+1. Bump `Version` in both `manifest.json` and `AskTheAlmanac.csproj`.
+2. Run the harness's standard question set.
+3. Check the window in-game.
+4. Follow "Publishing a release" in INSTALL.md (`dotnet build -c Release -p:EnableModDeploy=false`, then `gh release create`).
+
+Releases go to the private repo `mpsecco/ask-the-almanac`. There's no Nexus page yet, so `UpdateKeys` in the manifest is empty.
+
+## Open issues
+
+Known gaps, roughly in priority order. Most must be fixed before a public release:
+
+- **The default `ToggleKey` (F2) clashes with Data Layers.** Pick a different default.
+- **Chat content is logged.** `LogLevel.Trace` writes compaction summaries to the SMAPI log file, which players upload when asking for help. Stop logging chat content.
+- **Split-screen shares one session.** `ChatSession` should be wrapped in SMAPI's `PerScreen<T>`.
+- **No gamepad text input.**
+- **The wiki user-agent has no contact URL** (MediaWiki etiquette), and pages aren't cached.
+- **Wikitext cleanup leaves table markup** (`{|`, `||`, `!`, `xlink=`), and joins material lists together (`Wood x300Stone x100`). Search snippets are mostly markup too.
+- **Follow-up questions repeat lookups** ("and the big one?" re-reads the Coop page), because wiki results aren't kept in history. The 1M cloud context leaves room to keep recent results.
+- **`GameContext` sends the farm name**, which answers don't need.
+- **Optional:** Generic Mod Config Menu integration, and i18n for player-facing strings.
 
 ## Conventions
 
