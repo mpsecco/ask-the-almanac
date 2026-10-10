@@ -73,7 +73,7 @@ The following is sent to the Ollama server you configure. With a `:cloud` model,
 - Your questions, and the conversation so far (older parts as a summary)
 - If `IncludeGameContext` is on: the in-game date and time, weather, money, farm name, current location, skill levels and today's luck
 
-The mod also fetches pages from stardewvalleywiki.com. Nothing else leaves your computer. Your conversation is kept in memory and is cleared when you return to the title screen or type `/clear`. One exception: summaries of older conversation are currently written to SMAPI's log file, so check the log before sharing it.
+The mod also fetches pages from stardewvalleywiki.com. Nothing else leaves your computer. Your conversation is kept in memory and is cleared when you return to the title screen or type `/clear`. The chat window's conversation is never written to SMAPI's log. Questions asked with the `almanac_ask` console command are, along with their answers, because SMAPI logs all console output.
 
 ## Known limitations
 
@@ -97,3 +97,7 @@ Requires the .NET SDK (6.0 or newer). The install scripts are the easiest route 
 ## Credits
 
 Game facts come from the [Stardew Valley Wiki](https://stardewvalleywiki.com), whose content is licensed under [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/). Stardew Valley is by ConcernedApe. This mod isn't affiliated with either.
+
+## License
+
+The mod's code is released under the [MIT License](LICENSE).

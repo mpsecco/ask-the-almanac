@@ -3,7 +3,7 @@
   "Author": "Mark",
   "Version": "1.0.0",
   "Description": "An in-game chat window for asking an AI (via Ollama) Stardew Valley questions, backed by the Stardew wiki.",
-  "UniqueID": "mark.AskTheAlmanac",
+  "UniqueID": "mpsecco.AskTheAlmanac",
   "EntryDll": "AskTheAlmanac.dll",
   "MinimumApiVersion": "4.0.0",
   "UpdateKeys": []

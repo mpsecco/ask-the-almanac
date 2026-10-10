@@ -330,7 +330,8 @@ internal sealed class ChatSession
                 // only appends happen while compacting, so the dropped exchanges are still at the front
                 history.RemoveRange(0, drop);
                 summary = string.IsNullOrWhiteSpace(newSummary) ? oldSummary : newSummary;
-                monitor.Log($"Compacted {drop / 2} older exchanges into a summary:\n{summary}", LogLevel.Trace);
+                // Players upload the SMAPI log when asking for help, so never write chat content to it.
+                monitor.Log($"Compacted {drop / 2} older exchanges into a {OllamaClient.EstimateTokens(summary ?? "")}-token summary.", LogLevel.Trace);
             });
         });
     }

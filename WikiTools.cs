@@ -200,7 +200,9 @@ internal sealed class WikiTools
     private static HttpClient CreateHttpClient()
     {
         var client = new HttpClient { Timeout = TimeSpan.FromSeconds(20) };
-        client.DefaultRequestHeaders.UserAgent.ParseAdd("AskTheAlmanac/1.0 (Stardew Valley SMAPI mod)");
+        // MediaWiki etiquette asks for a user agent with contact details.
+        var version = typeof(WikiTools).Assembly.GetName().Version;
+        client.DefaultRequestHeaders.UserAgent.ParseAdd($"AskTheAlmanac/{version?.ToString(3) ?? "1.0"} (+https://github.com/mpsecco/ask-the-almanac; Stardew Valley SMAPI mod)");
         return client;
     }
 }

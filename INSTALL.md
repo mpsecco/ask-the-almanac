@@ -4,13 +4,12 @@ The install scripts build the mod from source and copy it into the game's `Mods`
 
 ## 1. Get the code
 
-The repository is private, so sign in with the GitHub CLI first:
-
 ```bash
-gh auth login
-gh repo clone mpsecco/ask-the-almanac
+git clone https://github.com/mpsecco/ask-the-almanac.git
 cd ask-the-almanac
 ```
+
+No Git? Download the source zip from the [repository page](https://github.com/mpsecco/ask-the-almanac) (**Code** → **Download ZIP**) and unzip it.
 
 ## 2. Install the prerequisites
 
@@ -74,9 +73,13 @@ git pull
 ./install.sh            # or install.ps1 on Windows
 ```
 
+If you downloaded the source zip instead of cloning, download and unzip the new one, then run the installer again.
+
 ## Without building: download a release
 
-On a machine that already has SMAPI, you can skip the .NET SDK and the clone. Download the latest release zip and unzip it into the game's `Mods` folder, so you end up with `Mods/AskTheAlmanac/AskTheAlmanac.dll`:
+On a machine that already has SMAPI, you can skip the .NET SDK and the clone. Download the latest `AskTheAlmanac-<version>.zip` from [Releases](https://github.com/mpsecco/ask-the-almanac/releases) and unzip it into the game's `Mods` folder, so you end up with `Mods/AskTheAlmanac/AskTheAlmanac.dll`.
+
+Or, from a terminal with the [GitHub CLI](https://cli.github.com):
 
 ```bash
 gh release download --repo mpsecco/ask-the-almanac --pattern '*.zip'

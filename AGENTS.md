@@ -78,17 +78,16 @@ MODEL=glm-5.3-flash:cloud CTX=6000 HIST=300 dotnet run -- ...   # small budgets 
 3. Check the window in-game.
 4. Follow "Publishing a release" in INSTALL.md (`dotnet build -c Release -p:EnableModDeploy=false`, then `gh release create`).
 
-Releases go to the private repo `mpsecco/ask-the-almanac`. There's no Nexus page yet, so `UpdateKeys` in the manifest is empty.
+Releases go to `mpsecco/ask-the-almanac` on GitHub. There's no Nexus page yet, so `UpdateKeys` in the manifest is empty.
 
 ## Open issues
 
 Known gaps, roughly in priority order. Most must be fixed before a public release:
 
 - **The default `ToggleKey` (F2) clashes with Data Layers.** Pick a different default.
-- **Chat content is logged.** `LogLevel.Trace` writes compaction summaries to the SMAPI log file, which players upload when asking for help. Stop logging chat content.
 - **Split-screen shares one session.** `ChatSession` should be wrapped in SMAPI's `PerScreen<T>`.
 - **No gamepad text input.**
-- **The wiki user-agent has no contact URL** (MediaWiki etiquette), and pages aren't cached.
+- **Wiki pages aren't cached.**
 - **Wikitext cleanup leaves table markup** (`{|`, `||`, `!`, `xlink=`), and joins material lists together (`Wood x300Stone x100`). Search snippets are mostly markup too.
 - **Follow-up questions repeat lookups** ("and the big one?" re-reads the Coop page), because wiki results aren't kept in history. The 1M cloud context leaves room to keep recent results.
 - **`GameContext` sends the farm name**, which answers don't need.
