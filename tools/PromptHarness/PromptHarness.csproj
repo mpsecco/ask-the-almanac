@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Runs the mod's AI code (prompt, Ollama client, wiki tools, session) outside the game. See AGENTS.md. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <GamePath Condition="'$(GamePath)' == ''">$(HOME)/.local/share/Steam/steamapps/common/Stardew Valley</GamePath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../../OllamaClient.cs;../../WikiTools.cs;../../ChatSession.cs" />
+    <!-- only for IMonitor/LogLevel, which ChatSession uses -->
+    <Reference Include="$(GamePath)/StardewModdingAPI.dll" />
+  </ItemGroup>
+
+</Project>
